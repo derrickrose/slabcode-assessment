@@ -1,0 +1,3 @@
+spring:
+  profiles:
+    active: local #value can be dev or prod or qa

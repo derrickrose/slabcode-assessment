@@ -24,7 +24,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Component
-public class JwtTokenProvider {
+public class JwtTokenService {
 
 
     @Value("${security.jwt.token.secret-key:secret-key}") // in production environment should be moved to configserver

@@ -1,10 +1,9 @@
 package com.slabcode.assessment.configuration;
 
-import com.slabcode.assessment.filter.JwtTokenFilterConfigurer;
-import com.slabcode.assessment.service.security.JwtTokenProvider;
+import com.slabcode.assessment.filter.JwtTokenFilterConfigurerAdapter;
+import com.slabcode.assessment.service.security.JwtTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -18,7 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class WebSecurityConfigAdapter extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private JwtTokenProvider jwtTokenProvider;
+    private JwtTokenService jwtTokenService;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -60,7 +59,7 @@ public class WebSecurityConfigAdapter extends WebSecurityConfigurerAdapter {
         //If a user try to access a resource without having enough permissions
         http.exceptionHandling().accessDeniedPage("/login");
 
-        http.apply(new JwtTokenFilterConfigurer(jwtTokenProvider));
+        http.apply(new JwtTokenFilterConfigurerAdapter(jwtTokenService));
 
 
     }

@@ -56,7 +56,7 @@ public class SwaggerConfig {
     private SecurityContext securityContext() {
         return SecurityContext.builder()
                 .securityReferences(defaultAuth())
-                .forPaths(PathSelectors.regex("/users/user"))//TODO update to any
+                .forPaths(PathSelectors.any())//TODO update to any
                 .build();
     }
 

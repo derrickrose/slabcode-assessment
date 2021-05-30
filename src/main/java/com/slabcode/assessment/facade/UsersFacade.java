@@ -17,7 +17,7 @@ public class UsersFacade {
     }
 
     public User findByName(String name) {
-        return usersRepository.findByName(name);
+        return usersRepository.findByUsername(name);
     }
 
     @Transactional

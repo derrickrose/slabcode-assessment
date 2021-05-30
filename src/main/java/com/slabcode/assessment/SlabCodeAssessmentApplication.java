@@ -2,7 +2,7 @@ package com.slabcode.assessment;
 
 import com.slabcode.assessment.entity.Role;
 import com.slabcode.assessment.entity.User;
-import com.slabcode.assessment.facade.UsersFacade;
+import com.slabcode.assessment.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -15,7 +15,7 @@ import java.util.Arrays;
 public class SlabCodeAssessmentApplication implements CommandLineRunner {
 
     @Autowired
-    private UsersFacade usersFacade;
+    private UsersService usersService;
 
     public static void main(String[] args) {
         SpringApplication.run(SlabCodeAssessmentApplication.class, args);
@@ -27,17 +27,17 @@ public class SlabCodeAssessmentApplication implements CommandLineRunner {
         admin.setUsername("admin");
         admin.setPassword("admin");
         admin.setEmail("admin@email.com");
-        admin.setRoles(new ArrayList(Arrays.asList(Role.ROLE_ADMIN)));
+        admin.setRoles(new ArrayList<Role>(Arrays.asList(Role.ROLE_ADMIN)));
 
-        usersFacade.save(admin);
+        usersService.save(admin);
 
         User client = new User();
         client.setUsername("client");
         client.setPassword("client");
         client.setEmail("client@email.com");
-        client.setRoles(new ArrayList(Arrays.asList(Role.ROLE_USER)));
+        client.setRoles(new ArrayList<Role>(Arrays.asList(Role.ROLE_USER)));
 
-        usersFacade.save(client);
+        usersService.save(client);
     }
 
 

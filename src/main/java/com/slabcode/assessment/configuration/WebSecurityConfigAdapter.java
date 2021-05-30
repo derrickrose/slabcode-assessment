@@ -48,7 +48,7 @@ public class WebSecurityConfigAdapter extends WebSecurityConfigurerAdapter {
                 // .antMatchers("/users/**").permitAll()
                 .antMatchers("/h2-console/**/**").permitAll()
                 //.antMatchers("/users/sign-in").permitAll()
-                .antMatchers("/users/sign-up").permitAll()
+                .antMatchers("/users/sign-in").permitAll()
                 .antMatchers("/swagger-ui.html").permitAll()
                 //.antMatchers("/users/sign-in").hasRole("ROLE_USER")
                 //.antMatchers(HttpMethod.POST, "/users").permitAll()

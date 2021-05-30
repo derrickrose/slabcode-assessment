@@ -13,13 +13,13 @@ public class User {
 
     @Size(min = 4, max = 255, message = "Minimum username length: 4 characters")
     @Column(unique = true, nullable = false)
-    private String name;
+    private String username;
 
     @Column(unique = true, nullable = false)
     private String email;
 
     @Size(min = 4, message = "Minimum password length: 4 characters")
-    private String passWord;
+    private String password;
 
     @ElementCollection(fetch = FetchType.EAGER)
     List<Role> roles;
@@ -33,11 +33,11 @@ public class User {
     }
 
     public String getUsername() {
-        return name;
+        return username;
     }
 
     public void setUsername(String name) {
-        this.name = name;
+        this.username = name;
     }
 
     public String getEmail() {
@@ -49,11 +49,11 @@ public class User {
     }
 
     public String getPassword() {
-        return passWord;
+        return password;
     }
 
     public void setPassword(String password) {
-        this.passWord = password;
+        this.password = password;
     }
 
     public List<Role> getRoles() {

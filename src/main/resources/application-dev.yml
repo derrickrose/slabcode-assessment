@@ -3,7 +3,7 @@ spring:
     name: assessment
   datasource:
     url: jdbc:h2:mem:slabcode_db;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
-    # url: jdbc:mysql://localhost:3306/user_db
+    # url: jdbc:mysql:localhost:3306/user_db
     username: root
     password: root
   tomcat:
@@ -26,11 +26,11 @@ server:
   port: 8080 # This is the default port anyway, but you can change it here
 
 
-    #security:
-    #  jwt:
-    #    token:
-    #      secret-key: secret-key
-  #      expire-length: 300000 # 5 minutes duration by default: 5 minutes * 60 seconds * 1000 miliseconds
+security:
+  jwt:
+    token:
+      secret-key: secret-key
+      expire-length: 300000 # 5 minutes duration by default: 5 minutes * 60 seconds * 1000 miliseconds
 
 #UserController:
 #  signin: Authenticates user and returns its JWT token.

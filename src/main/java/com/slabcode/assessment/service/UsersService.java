@@ -2,8 +2,15 @@ package com.slabcode.assessment.service;
 
 import com.slabcode.assessment.dto.UserDTO;
 import com.slabcode.assessment.entity.User;
+import com.slabcode.assessment.exception.CustomException;
 import com.slabcode.assessment.facade.UsersFacade;
+import com.slabcode.assessment.repository.UsersRepository;
+import com.slabcode.assessment.service.security.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -29,5 +36,21 @@ public class UsersService {
     public UserDTO findById(Long id) {
         User user = usersFacade.findById(id);
         return UserDTO.fromUser(user);
+    }
+
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
+    @Autowired
+    private JwtTokenProvider jwtTokenProvider;
+
+
+    public String signin(String username, String password) {
+        try {
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+            return jwtTokenProvider.createToken(username, usersFacade.findByName(username).getRoles());
+        } catch (AuthenticationException e) {
+            throw new CustomException("Invalid username/password supplied", HttpStatus.UNPROCESSABLE_ENTITY);
+        }
     }
 }

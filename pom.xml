@@ -25,6 +25,12 @@
 
     <dependencies>
 
+        <!-- https://mvnrepository.com/artifact/software.amazon.awssdk/sns -->
+        <dependency>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>sns</artifactId>
+            <version>2.16.74</version>
+        </dependency>
 
         <dependency>
             <!-- Setup Spring Boot -->
@@ -75,6 +81,8 @@
             <version>1.18.20</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk-sns -->
+
 
         <!--        <dependency>-->
         <!--            &lt;!&ndash; Make method based security testing easier &ndash;&gt;-->
@@ -108,6 +116,13 @@
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
 
+
+        <dependency>
+            <!-- Starter for using Spring Security -->
+            <groupId>com.sendgrid</groupId>
+            <artifactId>sendgrid-java</artifactId>
+            <version>4.0.1</version>
+        </dependency>
     </dependencies>
 
     <build>

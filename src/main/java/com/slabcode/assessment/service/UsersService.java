@@ -3,7 +3,7 @@ package com.slabcode.assessment.service;
 import com.slabcode.assessment.entity.User;
 import com.slabcode.assessment.exception.CustomException;
 import com.slabcode.assessment.facade.UsersFacade;
-import com.slabcode.assessment.remote.SendgridService;
+import com.slabcode.assessment.service.remote.SendgridService;
 import com.slabcode.assessment.service.security.JwtTokenService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;

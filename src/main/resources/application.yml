@@ -6,3 +6,32 @@ notification:
     send-grid:
       secret-key: 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
       validated-single-sender: randofrils@gmail.com
+
+server:
+  port: 8080 # This is the default port anyway, but you can change it here
+
+############################################################################################################
+## Used for swagger documentation
+############################################################################################################
+
+UsersController:
+  sign-in: Authenticates user and returns its JWT token.
+  sign-up: Creates user.
+  delete: Deletes specific user by username.
+  greetings:
+    admin: Says hello to admin.
+    user: Says hello to user.
+  search: Returns specific user by username.
+  get: Returns user by its id.
+
+ProjectsController:
+  create: Creates new project.
+  read: Returns specific project by projectname.
+  update: Updates specific project by its id.
+  delete: Deletes specific project by its id.
+
+TasksController:
+  create: Creates new task.
+  read: Returns specific project by taskname.
+  update: Updates specific task by its id.
+  delete: Deletes specific task by its id.

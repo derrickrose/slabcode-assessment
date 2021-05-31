@@ -37,6 +37,7 @@ public class SwaggerConfig {
                 .securityContexts(Collections.singletonList(securityContext()))
                 .tags(new Tag("users", "Operations about users"))
                 .tags(new Tag("projects", "Operations about projects"))
+                .tags(new Tag("projects", "Operations about tasks"))
                 .genericModelSubstitutes(Optional.class);
     }
 

@@ -1,4 +1,4 @@
-package com.slabcode.assessment.remote;
+package com.slabcode.assessment.service.remote;
 
 import com.sendgrid.*;
 import org.springframework.beans.factory.annotation.Value;

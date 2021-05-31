@@ -12,7 +12,7 @@ import java.util.Calendar;
 @Setter
 @NoArgsConstructor
 public class TaskDTO {
-    private Long id;
+    private  Integer id;
     private String name;
     private String description;
     private Calendar creationDate;

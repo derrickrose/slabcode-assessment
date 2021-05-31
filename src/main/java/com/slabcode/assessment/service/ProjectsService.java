@@ -23,7 +23,7 @@ public class ProjectsService {
         return projectsFacade.save(project);
     }
 
-    public Project findById(Long id) {
+    public Project findById( Integer id) {
         return projectsFacade.findById(id);
     }
 }

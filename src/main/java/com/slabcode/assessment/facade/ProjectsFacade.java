@@ -26,8 +26,8 @@ public class ProjectsFacade {
     }
 
 
-    public Project findById(Long id) {
-        return projectsRepository.findById(id);
+    public Project findById(Integer id) {
+        return projectsRepository.findById(id).orElse(null);
     }
 
 }

@@ -17,7 +17,7 @@ import java.util.Calendar;
 public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private  Integer id;
 
     @Size(min = 4, max = 255, message = "Minimum project name length: 4 characters")
     @Column(unique = true, nullable = false)

@@ -26,8 +26,8 @@ public class UsersFacade {
     }
 
 
-    public User findById(Long id) {
-        return usersRepository.findById(id);
+    public User findById( Integer id) {
+        return usersRepository.findById(id).orElse(null);
     }
 
 }

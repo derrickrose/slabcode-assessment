@@ -7,8 +7,4 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ProjectsRepository extends JpaRepository<Project, Integer> {
     Project findByName(String name);
-
-    Project save(Project project);
-
-    Project findById(Long id);
 }

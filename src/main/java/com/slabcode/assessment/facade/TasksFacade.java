@@ -1,6 +1,5 @@
 package com.slabcode.assessment.facade;
 
-import com.slabcode.assessment.entity.Project;
 import com.slabcode.assessment.entity.Task;
 import com.slabcode.assessment.repository.TasksRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +16,6 @@ public class TasksFacade {
         this.tasksRepository = tasksRepository;
     }
 
-    public Task findByName(String name) {
-        return tasksRepository.findByName(name);
-    }
 
     @Transactional
     public Task save(Task task) {
@@ -27,8 +23,17 @@ public class TasksFacade {
     }
 
 
-    public Task findById(Long id) {
-        return tasksRepository.findById(id);
+    public Task findByName(String name) {
+        return tasksRepository.findByName(name);
+    }
+
+
+    public Task findById(Integer id) {
+        return tasksRepository.findById(id).orElse(null);
+    }
+
+    public Task update(Task task) {
+        return tasksRepository.save(task);
     }
 
 }

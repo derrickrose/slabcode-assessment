@@ -23,7 +23,7 @@ public class TasksService {
         return tasksFacade.save(task);
     }
 
-    public Task findById(Long id) {
+    public Task findById( Integer id) {
         return tasksFacade.findById(id);
     }
 }

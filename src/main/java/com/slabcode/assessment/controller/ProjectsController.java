@@ -26,7 +26,7 @@ public class ProjectsController {
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ApiOperation(value = "${ProjectsController.get}")
-    public ProjectDTO getProjectById(@PathVariable Long id) {
+    public ProjectDTO getProjectById(@PathVariable  Integer id) {
         return ProjectDTO.fromProject(ProjectsService.findById(id));
     }
 

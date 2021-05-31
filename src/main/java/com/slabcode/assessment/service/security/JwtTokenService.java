@@ -28,7 +28,7 @@ public class JwtTokenService {
     private String secretKey;
 
     @Value("${security.jwt.token.expire-length:3600000}")  //in production environment should be moved to configserver
-    private long validityInMilliseconds = 3600000; // 1h
+    private  Integer validityInMilliseconds = 3600000; // 1h
 
     @Autowired
     private CustomUserDetailsService customUserDetailsService;

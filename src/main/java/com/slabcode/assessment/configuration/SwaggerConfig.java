@@ -37,7 +37,7 @@ public class SwaggerConfig {
                 .securityContexts(Collections.singletonList(securityContext()))
                 .tags(new Tag("users", "Operations about users"))
                 .tags(new Tag("projects", "Operations about projects"))
-                .tags(new Tag("projects", "Operations about tasks"))
+                .tags(new Tag("tasks", "Operations about tasks"))
                 .genericModelSubstitutes(Optional.class);
     }
 
@@ -45,7 +45,7 @@ public class SwaggerConfig {
     private ApiInfo metadata() {
         return new ApiInfoBuilder()
                 .title("SLABCODE project management API")
-                .description("Powered with sample JWT service.")
+                .description("Powered with sample JWT service")
                 .version("1.0.0-SNAPSHOT")
                 .contact(new Contact(null, null, "randofrils@gmail.com"))
                 .build();

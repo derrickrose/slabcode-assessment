@@ -27,7 +27,7 @@ public class TasksController {
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ApiOperation(value = "${TasksController.get}")
-    public TaskDTO getTaskById(@PathVariable Long id) {
+    public TaskDTO getTaskById(@PathVariable  Integer id) {
         return TaskDTO.fromTask(tasksService.findById(id));
     }
 

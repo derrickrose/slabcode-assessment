@@ -45,13 +45,12 @@ public class UsersService {
         newUser.setPassword(passwordEncoder.encode(user.getPassword()));
         newUser = usersFacade.save(newUser);
         if (notify) {
-            System.err.println("pass è--------------------- " + user.getPassword());
             sendgridService.notifyUser(user.getUsername(), user.getPassword(), user.getEmail());
         }
         return newUser;
     }
 
-    public User findById(Long id) {
+    public User findById(Integer id) {
         return usersFacade.findById(id);
     }
 

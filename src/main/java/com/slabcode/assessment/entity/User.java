@@ -9,7 +9,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private  Integer id;
 
     @Size(min = 4, max = 255, message = "Minimum username length: 4 characters")
     @Column(unique = true, nullable = false)
@@ -24,11 +24,11 @@ public class User {
     @ElementCollection(fetch = FetchType.EAGER)
     Set<Role> roles;
 
-    public Long getId() {
+    public  Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId( Integer id) {
         this.id = id;
     }
 

@@ -26,7 +26,7 @@ public class UsersController {
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ApiOperation(value = "${UsersController.get}")
-    public UserDTO getUserById(@PathVariable Long id) {
+    public UserDTO getUserById(@PathVariable  Integer id) {
         return UserDTO.fromUser(usersService.findById(id)).withPassWord(null);
     }
 

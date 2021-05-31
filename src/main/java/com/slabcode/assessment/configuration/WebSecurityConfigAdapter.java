@@ -28,30 +28,10 @@ public class WebSecurityConfigAdapter extends WebSecurityConfigurerAdapter {
         http.sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and();
 
-
-        //If a user try to access a resource without having enough permissions
-
-
-        /*
-        http
-                .exceptionHandling()
-                .authenticationEntryPoint(
-                        (request, response, ex) ->
-                                response.sendError(
-                                        HttpServletResponse.SC_UNAUTHORIZED,
-                                        ex.getMessage()
-                                )
-                ).and();*/
-
         http.authorizeRequests()
-                // .antMatchers("/users/**").hasRole("ROLE_ADMIN")
-                // .antMatchers("/users/**").permitAll()
                 .antMatchers("/h2-console/**/**").permitAll()
-                //.antMatchers("/users/sign-in").permitAll()
                 .antMatchers("/users/sign-in").permitAll()
                 .antMatchers("/swagger-ui.html").permitAll()
-                //.antMatchers("/users/sign-in").hasRole("ROLE_USER")
-                //.antMatchers(HttpMethod.POST, "/users").permitAll()
 
                 .anyRequest().authenticated();
 
@@ -80,7 +60,6 @@ public class WebSecurityConfigAdapter extends WebSecurityConfigurerAdapter {
                 .and()
                 .ignoring()
                 .antMatchers("/h2-console/**/**");
-
     }
 
 
@@ -89,26 +68,9 @@ public class WebSecurityConfigAdapter extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-    /*
-    @Bean because we enabled CORS, this would be used by spring security
-    public CorsFilter corsFilter() {
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        CorsConfiguration config = new CorsConfiguration();
-        config.setAllowCredentials(true);
-        config.addAllowedOrigin("*");
-        config.addAllowedHeader("*");
-        config.addAllowedMethod("*");
-        source.registerCorsConfiguration("/**", config);
-        return new CorsFilter(source);
-    }
-
-     */
-
     @Override
     @Bean
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
-
-
 }

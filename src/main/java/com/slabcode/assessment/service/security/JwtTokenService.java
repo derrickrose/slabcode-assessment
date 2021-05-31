@@ -17,10 +17,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
-import java.util.Base64;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Component
@@ -41,12 +38,12 @@ public class JwtTokenService {
         secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
     }
 
-    public String createToken(String username, List<Role> roles) {
+    public String createToken(String username, Set<Role> roles) {
 
         Claims claims = Jwts.claims().setSubject(username);
         claims.put("auth", roles.stream().map(role ->
                 new SimpleGrantedAuthority(role.getAuthority()))
-                .filter(Objects::nonNull).collect(Collectors.toList()));
+                .filter(Objects::nonNull).collect(Collectors.toSet()));
 
         Date now = new Date();
         Date validity = new Date(now.getTime() + validityInMilliseconds);
@@ -69,11 +66,13 @@ public class JwtTokenService {
     }
 
     public String resolveToken(HttpServletRequest req) {
+        /*
         String bearerToken = req.getHeader("Authorization");
         if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
             return bearerToken.substring(7);
         }
-        return null;
+        //*/
+        return req.getHeader("Authorization");
     }
 
     public boolean validateToken(String token) {

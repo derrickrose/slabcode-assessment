@@ -8,8 +8,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 
 @SpringBootApplication
 public class SlabCodeAssessmentApplication implements CommandLineRunner {
@@ -27,7 +27,7 @@ public class SlabCodeAssessmentApplication implements CommandLineRunner {
         admin.setUsername("admin");
         admin.setPassword("admin");
         admin.setEmail("admin@email.com");
-        admin.setRoles(new ArrayList<Role>(Arrays.asList(Role.ROLE_ADMIN)));
+        admin.setRoles(new HashSet<>(Arrays.asList(Role.ROLE_ADMIN)));
 
         usersService.save(admin);
 
@@ -35,7 +35,7 @@ public class SlabCodeAssessmentApplication implements CommandLineRunner {
         client.setUsername("client");
         client.setPassword("client");
         client.setEmail("client@email.com");
-        client.setRoles(new ArrayList<Role>(Arrays.asList(Role.ROLE_USER)));
+        client.setRoles(new HashSet<>(Arrays.asList(Role.ROLE_USER)));
 
         usersService.save(client);
     }

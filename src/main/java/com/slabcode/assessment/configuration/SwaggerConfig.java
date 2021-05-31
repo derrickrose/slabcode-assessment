@@ -36,14 +36,15 @@ public class SwaggerConfig {
                 .securitySchemes(Collections.singletonList(apiKey()))
                 .securityContexts(Collections.singletonList(securityContext()))
                 .tags(new Tag("users", "Operations about users"))
+                .tags(new Tag("projects", "Operations about projects"))
                 .genericModelSubstitutes(Optional.class);
     }
 
 
     private ApiInfo metadata() {
         return new ApiInfoBuilder()
-                .title("SLABCODE project API")
-                .description("Sample JWT service.")
+                .title("SLABCODE project management API")
+                .description("Powered with sample JWT service.")
                 .version("1.0.0-SNAPSHOT")
                 .contact(new Contact(null, null, "randofrils@gmail.com"))
                 .build();
@@ -56,7 +57,7 @@ public class SwaggerConfig {
     private SecurityContext securityContext() {
         return SecurityContext.builder()
                 .securityReferences(defaultAuth())
-                .forPaths(PathSelectors.any())//TODO update to any
+                .forPaths(PathSelectors.any())
                 .build();
     }
 

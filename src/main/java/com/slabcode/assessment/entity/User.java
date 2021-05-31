@@ -2,7 +2,7 @@ package com.slabcode.assessment.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 public class User {
@@ -13,16 +13,16 @@ public class User {
 
     @Size(min = 4, max = 255, message = "Minimum username length: 4 characters")
     @Column(unique = true, nullable = false)
-    private String username;
+    private String name;
 
     @Column(unique = true, nullable = false)
     private String email;
 
     @Size(min = 4, message = "Minimum password length: 4 characters")
-    private String password;
+    private String passWord;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    List<Role> roles;
+    Set<Role> roles;
 
     public Long getId() {
         return id;
@@ -33,11 +33,11 @@ public class User {
     }
 
     public String getUsername() {
-        return username;
+        return name;
     }
 
     public void setUsername(String name) {
-        this.username = name;
+        this.name = name;
     }
 
     public String getEmail() {
@@ -49,18 +49,18 @@ public class User {
     }
 
     public String getPassword() {
-        return password;
+        return passWord;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPassword(String passWord) {
+        this.passWord = passWord;
     }
 
-    public List<Role> getRoles() {
+    public Set<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<Role> roles) {
+    public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
 }

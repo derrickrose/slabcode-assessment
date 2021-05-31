@@ -2,10 +2,7 @@ package com.slabcode.assessment.controller;
 
 import com.slabcode.assessment.dto.UserDTO;
 import com.slabcode.assessment.service.UsersService;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -16,6 +13,7 @@ import java.net.URI;
 
 @RestController
 @RequestMapping("/users")
+@Api(tags = "users")
 public class UsersController {
 
     private UsersService usersService;
@@ -26,17 +24,22 @@ public class UsersController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @ApiOperation(value = "${UsersController.get}")
     public UserDTO getUserById(@PathVariable Long id) {
         return UserDTO.fromUser(usersService.findById(id)).withPassWord(null);
     }
 
     @GetMapping
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @ApiOperation(value = "${UsersController.search}")
     public UserDTO findUserByName(@RequestParam String name) {
         return UserDTO.fromUser(usersService.findByName(name)).withPassWord(null);
     }
 
     @PostMapping("/sign-up")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @ApiOperation(value = "${UsersController.sign-up}")
     public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO) {
         userDTO = UserDTO.fromUser(usersService.save(userDTO.toUser())).withPassWord(null);
 
@@ -51,24 +54,28 @@ public class UsersController {
 
 
     @GetMapping("/user")
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+    @ApiOperation(value = "${UsersController.greetings.user}")
     public String greetingsUser() {
         return "HELLO USER";
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+
     @GetMapping("/admin")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @ApiOperation(value = "${UsersController.greetings.admin}")
     public String greetingsAdmin() {
         return "HELLO ADMIN";
     }
 
     @PostMapping("/sign-in")
-    @ApiOperation(value = "${UserController.signin}")
+    @ApiOperation(value = "${UsersController.sign-in}")
     @ApiResponses(value = {
             @ApiResponse(code = 400, message = "Something went wrong"),
             @ApiResponse(code = 422, message = "Invalid username/password supplied")})
-    public String login(
-            @ApiParam("Username") @RequestParam String username,
-            @ApiParam("Password") @RequestParam String password) {
-        return usersService.signin(username, password);
+    public String signIn(
+            @ApiParam("UserName") @RequestParam String userName,
+            @ApiParam("PassWord") @RequestParam String passWord) {
+        return usersService.signin(userName, passWord);
     }
 }

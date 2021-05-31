@@ -32,13 +32,14 @@ security:
       secret-key: secret-key
       expire-length: 300000 # 5 minutes duration by default: 5 minutes * 60 seconds * 1000 miliseconds
 
-#UserController:
-#  signin: Authenticates user and returns its JWT token.
-#  signup: Creates user and returns its JWT token
-#  delete: Deletes specific user by username
-#  search: Returns specific user by username
-#  me: Returns current user's data
+UsersController:
+  sign-in: Authenticates user and returns its JWT token.
+  sign-up: Creates user.
+  delete: Deletes specific user by username.
+  greetings:
+    admin: Says hello to admin.
+    user: Says hello to user.
+  search: Returns specific user by username.
+  get: Returns user by its id.
 
-#############################################################################
-## SPRING SECURITY DEFAULT USER VALUES
-#############################################################################
+

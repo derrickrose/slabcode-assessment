@@ -1,3 +1,8 @@
 spring:
   profiles:
     active: local #value can be dev or prod or qa
+notification:
+  email:
+    send-grid:
+      secret-key: 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
+      validated-single-sender: randofrils@gmail.com

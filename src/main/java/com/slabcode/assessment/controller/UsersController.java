@@ -41,7 +41,7 @@ public class UsersController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ApiOperation(value = "${UsersController.sign-up}")
     public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO) {
-        userDTO = UserDTO.fromUser(usersService.save(userDTO.toUser())).withPassWord(null);
+        userDTO = UserDTO.fromUser(usersService.save(userDTO.toUser(), true)).withPassWord(null);
 
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()

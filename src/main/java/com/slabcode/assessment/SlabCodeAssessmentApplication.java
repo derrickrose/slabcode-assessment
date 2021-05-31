@@ -29,7 +29,7 @@ public class SlabCodeAssessmentApplication implements CommandLineRunner {
         admin.setEmail("admin@email.com");
         admin.setRoles(new HashSet<>(Arrays.asList(Role.ROLE_ADMIN)));
 
-        usersService.save(admin);
+        usersService.save(admin, false);
 
         User client = new User();
         client.setUsername("client");
@@ -37,7 +37,7 @@ public class SlabCodeAssessmentApplication implements CommandLineRunner {
         client.setEmail("client@email.com");
         client.setRoles(new HashSet<>(Arrays.asList(Role.ROLE_USER)));
 
-        usersService.save(client);
+        usersService.save(client, false);
     }
 
 

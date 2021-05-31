@@ -3,7 +3,9 @@ package com.slabcode.assessment.service;
 import com.slabcode.assessment.entity.User;
 import com.slabcode.assessment.exception.CustomException;
 import com.slabcode.assessment.facade.UsersFacade;
+import com.slabcode.assessment.remote.SendgridService;
 import com.slabcode.assessment.service.security.JwtTokenService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -26,6 +28,9 @@ public class UsersService {
     private JwtTokenService jwtTokenService;
 
     @Autowired
+    private SendgridService sendgridService;
+
+    @Autowired
     public UsersService(UsersFacade usersFacade) {
         this.usersFacade = usersFacade;
     }
@@ -34,9 +39,16 @@ public class UsersService {
         return usersFacade.findByName(name);
     }
 
-    public User save(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return usersFacade.save(user);
+    public User save(final User user, final boolean notify) {
+        User newUser = new User();
+        BeanUtils.copyProperties(user, newUser);
+        newUser.setPassword(passwordEncoder.encode(user.getPassword()));
+        newUser = usersFacade.save(newUser);
+        if (notify) {
+            System.err.println("pass è--------------------- " + user.getPassword());
+            sendgridService.notifyUser(user.getUsername(), user.getPassword(), user.getEmail());
+        }
+        return newUser;
     }
 
     public User findById(Long id) {

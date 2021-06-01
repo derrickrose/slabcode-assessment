@@ -11,7 +11,7 @@ server:
   port: 8080 # This is the default port anyway, but you can change it here
 
 ############################################################################################################
-## Used for swagger documentation
+## Following values are used for swagger documentation
 ############################################################################################################
 
 UsersController:
@@ -26,12 +26,20 @@ UsersController:
 
 ProjectsController:
   create: Creates new project.
-  read: Returns specific project by projectname.
   update: Updates specific project by its id.
   delete: Deletes specific project by its id.
+  search: Returns specific project by projectname.
+  id: Gets specific project by its id.
+  status:
+    update: Updates project's status.
+  task:
+    on-going: Lists all on-going (not done) tasks by a project id.
 
 TasksController:
   create: Creates new task.
-  read: Returns specific project by taskname.
   update: Updates specific task by its id.
   delete: Deletes specific task by its id.
+  search: Returns specific task by taskname.
+  get: Retursn specific task by id.
+  status:
+    update: Updates task's status. (CREATED => ON_GOING => DONE)

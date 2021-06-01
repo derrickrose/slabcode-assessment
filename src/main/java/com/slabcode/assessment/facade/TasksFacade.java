@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -41,8 +42,8 @@ public class TasksFacade {
         return tasksRepository.existsById(id);
     }
 
-    public Set<Task> getNotDoneTasksByProjectId(Integer projectId) {
-        return tasksRepository.getNotDoneTasksByProjectId(projectId).orElse(new HashSet<>());
+    public List<Task> getNotDoneTasksByProjectId(Integer projectId) {
+        return tasksRepository.getNotDoneTasksByProjectId(projectId).orElse(new ArrayList<>());
     }
 
     @Transactional

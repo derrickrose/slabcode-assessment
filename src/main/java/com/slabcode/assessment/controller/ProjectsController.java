@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -67,11 +68,11 @@ public class ProjectsController {
     @GetMapping("/{id}/tasks/on-going")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ApiOperation(value = "${ProjectsController.task.on-going}")
-    public Set<TaskDTO> getNotDoneTasksById(@PathVariable Integer id) {
-        Set<Task> tasks = tasksService.getNotDoneTasksByProjectId(id);
-        Set<TaskDTO> taskDTOS = tasks.stream().map(
+    public List<TaskDTO> getNotDoneTasksById(@PathVariable Integer id) {
+        List<Task> tasks = tasksService.getNotDoneTasksByProjectId(id);
+        List<TaskDTO> taskDTOS = tasks.stream().map(
                 task -> taskDTOMapper.fromTask(task)
-        ).collect(Collectors.toSet());
+        ).collect(Collectors.toList());
         return taskDTOS;
     }
 

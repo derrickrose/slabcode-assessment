@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.Set;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -19,6 +19,6 @@ public interface TasksRepository extends JpaRepository<Task, Integer> {
     @Query("SELECT t FROM Task t JOIN t.project tp " +
             "WHERE tp.id=:projectId " +
             "AND t.status <> 'DONE' ")
-    Optional<Set<Task>> getNotDoneTasksByProjectId(@Param("projectId") Integer projectId);
+    Optional<List<Task>> getNotDoneTasksByProjectId(@Param("projectId") Integer projectId);
 
 }

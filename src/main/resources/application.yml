@@ -15,31 +15,33 @@ server:
 ############################################################################################################
 
 UsersController:
-  sign-in: Authenticates user and returns its JWT token.
   sign-up: Creates user.
-  delete: Deletes specific user by username.
+  sign-in: Authenticates user and returns its JWT token.
   greetings:
     admin: Says hello to admin.
     user: Says hello to user.
   search: Returns specific user by username.
   get: Returns user by its id.
+  delete: Deletes specific user by username.
 
 ProjectsController:
   create: Creates new project.
-  update: Updates specific project by its id.
-  delete: Deletes specific project by its id.
+  get: Gets specific project by its id.
   search: Returns specific project by projectname.
-  id: Gets specific project by its id.
-  status:
-    update: Updates project's status.
   task:
     on-going: Lists all on-going (not done) tasks by a project id.
+  update: Updates specific project by its id.
+  status:
+    update: Updates project's status.
+  delete: Deletes specific project by its id.
 
 TasksController:
   create: Creates new task.
-  update: Updates specific task by its id.
-  delete: Deletes specific task by its id.
-  search: Returns specific task by taskname.
   get: Retursn specific task by id.
+  search: Returns specific task by taskname.
+  update: Updates specific task by its id.
   status:
     update: Updates task's status. (CREATED => ON_GOING => DONE)
+  delete: Deletes specific task by its id.
+
+

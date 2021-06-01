@@ -1,6 +1,10 @@
 package com.slabcode.assessment.controller;
 
+import com.slabcode.assessment.dto.ProjectDTO;
 import com.slabcode.assessment.dto.TaskDTO;
+import com.slabcode.assessment.entity.Project;
+import com.slabcode.assessment.entity.Task;
+import com.slabcode.assessment.mapper.TaskDTOMapper;
 import com.slabcode.assessment.service.TasksService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -11,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/tasks")
@@ -18,31 +24,35 @@ import java.net.URI;
 public class TasksController {
 
     private TasksService tasksService;
+    private TaskDTOMapper taskDTOMapper;
 
     @Autowired
-    TasksController(TasksService tasksService) {
+    TasksController(TasksService tasksService, TaskDTOMapper taskDTOMapper) {
         this.tasksService = tasksService;
+        this.taskDTOMapper = taskDTOMapper;
     }
 
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ApiOperation(value = "${TasksController.get}")
-    public TaskDTO getTaskById(@PathVariable  Integer id) {
-        return TaskDTO.fromTask(tasksService.findById(id));
+    public TaskDTO getTaskById(@PathVariable Integer id) {
+        return taskDTOMapper.fromTask(tasksService.findById(id));
     }
 
     @GetMapping
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ApiOperation(value = "${TasksController.search}")
     public TaskDTO findTaskByName(@RequestParam String name) {
-        return TaskDTO.fromTask(tasksService.findByName(name));
+        return taskDTOMapper.fromTask(tasksService.findByName(name));
     }
 
     @PostMapping
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ApiOperation(value = "${TasksController.create}")
     public ResponseEntity<TaskDTO> createTask(@RequestBody TaskDTO taskDTO) {
-        taskDTO = TaskDTO.fromTask(tasksService.save(taskDTO.toTask()));
+        Task task = taskDTOMapper.toTask(taskDTO);
+        task = tasksService.save(task);
+        taskDTO = taskDTOMapper.fromTask(task);
 
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -52,4 +62,32 @@ public class TasksController {
 
         return ResponseEntity.created(location).body(taskDTO);
     }
+
+    @PutMapping
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+    @ApiOperation(value = "${TasksController.update}")
+    public ResponseEntity<TaskDTO> update(@RequestBody TaskDTO taskDTO) {
+        Task task = taskDTOMapper.toTask(taskDTO);
+        task = tasksService.update(task);
+        taskDTO = taskDTOMapper.fromTask(task);
+        return ResponseEntity.ok(taskDTO);
+    }
+
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @ApiOperation(value = "${TasksController.delete}")
+    public void deleteById(@PathVariable Integer id) {
+        tasksService.deteleById(id);
+    }
+
+    @PatchMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+    @ApiOperation(value = "${TasksController.status.update}")
+    public ResponseEntity<TaskDTO> updateStatus(@PathVariable Integer id, @RequestParam String status) {
+        Task task = tasksService.updateStatus(id, status);
+        TaskDTO taskDTO = taskDTOMapper.fromTask(task);
+        return ResponseEntity.ok(taskDTO);
+    }
+
+
 }

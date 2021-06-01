@@ -9,6 +9,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Calendar;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -17,14 +18,14 @@ import java.util.Calendar;
 public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private  Integer id;
+    private Integer id;
 
     @Size(min = 4, max = 255, message = "Minimum project name length: 4 characters")
     @Column(unique = true, nullable = false)
     private String name;
 
     @Size(min = 4, message = "Minimum project description length: 4 characters")
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private String description;
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -38,9 +39,13 @@ public class Project {
     @Enumerated(EnumType.STRING)
     ProgressStatus status;
 
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
+    Set<Task> tasks;
+
     @PrePersist
     void onCreate() {
-        this.setCreationDate(Calendar.getInstance());
-        this.setStatus(ProgressStatus.CREATED);
+        if (this.getStatus() == null) {
+            this.setStatus(ProgressStatus.CREATED);
+        }
     }
 }

@@ -17,30 +17,41 @@ import java.util.Calendar;
 public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private  Integer id;
+    private Integer id;
 
-    @Size(min = 4, max = 255, message = "Minimum task name length: 4 characters")
+    @Size(min = 4, max = 255, message = "Task name length should be between 4 and 255 characters")
     @Column(unique = true, nullable = false)
     private String name;
 
-    @Size(min = 4, message = "Minimum task description length: 4 characters")
-    @Column(unique = true, nullable = false)
+    @Size(max = 255, message = "Maximum task description length: 255 characters")
+    @Column
     private String description;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(nullable = false)
-    private Calendar creationDate;
+    //@Temporal(TemporalType.TIMESTAMP)
+    //@Column(nullable = false)
+    //private Calendar creationDate;
 
     @Temporal(TemporalType.TIMESTAMP)
-    private Calendar terminationDate;
+    private Calendar executionDate;
+
+    //@Temporal(TemporalType.TIMESTAMP)
+    // private Calendar terminationDate;
 
     @NotNull
     @Enumerated(EnumType.STRING)
     ProgressStatus status;
 
+    @ManyToOne
+    @NotNull
+    Project project;
+
     @PrePersist
     void onCreate() {
-        this.setCreationDate(Calendar.getInstance());
-        this.setStatus(ProgressStatus.CREATED);
+        if (this.getStatus() == null) {
+            this.setStatus(ProgressStatus.CREATED);
+        }
+        if (this.getExecutionDate() == null) {
+            this.setExecutionDate(Calendar.getInstance());
+        }
     }
 }

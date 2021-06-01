@@ -23,20 +23,6 @@ public class UsersController {
         this.usersService = usersService;
     }
 
-    @GetMapping("/{id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @ApiOperation(value = "${UsersController.get}")
-    public UserDTO getUserById(@PathVariable  Integer id) {
-        return UserDTO.fromUser(usersService.findById(id)).withPassWord(null);
-    }
-
-    @GetMapping
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @ApiOperation(value = "${UsersController.search}")
-    public UserDTO findUserByName(@RequestParam String name) {
-        return UserDTO.fromUser(usersService.findByName(name)).withPassWord(null);
-    }
-
     @PostMapping("/sign-up")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ApiOperation(value = "${UsersController.sign-up}")
@@ -52,21 +38,30 @@ public class UsersController {
         return ResponseEntity.created(location).body(userDTO);
     }
 
+    @GetMapping
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @ApiOperation(value = "${UsersController.search}")
+    public UserDTO findUserByName(@RequestParam String name) {
+        return UserDTO.fromUser(usersService.findByName(name)).withPassWord(null);
+    }
 
+    /*
     @GetMapping("/user")
     @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     @ApiOperation(value = "${UsersController.greetings.user}")
     public String greetingsUser() {
         return "HELLO USER";
     }
+    //*/
 
-
+    /*//
     @GetMapping("/admin")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ApiOperation(value = "${UsersController.greetings.admin}")
     public String greetingsAdmin() {
         return "HELLO ADMIN";
     }
+    //*/
 
     @PostMapping("/sign-in")
     @ApiOperation(value = "${UsersController.sign-in}")

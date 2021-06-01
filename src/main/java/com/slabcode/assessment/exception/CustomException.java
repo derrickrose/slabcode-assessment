@@ -2,7 +2,6 @@ package com.slabcode.assessment.exception;
 
 import org.springframework.http.HttpStatus;
 
-import java.util.function.Supplier;
 
 public class CustomException extends RuntimeException {
 

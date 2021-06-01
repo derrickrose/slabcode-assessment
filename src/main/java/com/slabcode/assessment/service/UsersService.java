@@ -45,7 +45,7 @@ public class UsersService {
         newUser.setPassword(passwordEncoder.encode(user.getPassword()));
         newUser = usersFacade.save(newUser);
         if (notify) {
-            sendgridService.notifyUser(user.getUsername(), user.getPassword(), user.getEmail());
+            sendgridService.notifyAccountCreated(user.getUsername(), user.getPassword(), user.getEmail());
         }
         return newUser;
     }

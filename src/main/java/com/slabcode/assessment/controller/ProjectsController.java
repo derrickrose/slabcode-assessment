@@ -33,9 +33,9 @@ public class ProjectsController {
     private TaskDTOMapper taskDTOMapper;
 
     @Autowired
-    ProjectsController(ProjectsService ProjectsService, ProjectDTOMapper projectDTOMapper,
+    ProjectsController(ProjectsService projectsService, ProjectDTOMapper projectDTOMapper,
                        TasksService tasksService, TaskDTOMapper taskDTOMapper) {
-        this.projectsService = ProjectsService;
+        this.projectsService = projectsService;
         this.projectDTOMapper = projectDTOMapper;
         this.tasksService = tasksService;
         this.taskDTOMapper = taskDTOMapper;
@@ -64,9 +64,9 @@ public class ProjectsController {
         return projectDTOMapper.fromProject(projectsService.findById(id));
     }
 
-    @GetMapping("/{id}/tasks")
+    @GetMapping("/{id}/tasks/on-going")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @ApiOperation(value = "${ProjectsController.task.notdone}")
+    @ApiOperation(value = "${ProjectsController.task.on-going}")
     public Set<TaskDTO> getNotDoneTasksById(@PathVariable Integer id) {
         Set<Task> tasks = tasksService.getNotDoneTasksByProjectId(id);
         Set<TaskDTO> taskDTOS = tasks.stream().map(
@@ -83,8 +83,17 @@ public class ProjectsController {
     }
 
 
+    @PatchMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @ApiOperation(value = "${ProjectsController.status.update}")
+    public ResponseEntity<ProjectDTO> updateStatus(@PathVariable Integer id, @RequestParam String status) {
+        Project project = projectsService.updateStatus(id, status);
+        ProjectDTO projectDTO = projectDTOMapper.fromProject(project);
+        return ResponseEntity.ok(projectDTO);
+    }
+
     @PutMapping
-    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ApiOperation(value = "${ProjectsController.update}")
     public ResponseEntity<ProjectDTO> update(@RequestBody ProjectDTO projectDTO) {
         Project project = projectDTOMapper.toProject(projectDTO);
@@ -93,14 +102,6 @@ public class ProjectsController {
         return ResponseEntity.ok(projectDTO);
     }
 
-    @PatchMapping("/{id}")
-    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
-    @ApiOperation(value = "${ProjectsController.status.update}")
-    public ResponseEntity<ProjectDTO> updateStatus(@PathVariable Integer id, @RequestParam String status) {
-        Project project = projectsService.updateStatus(id, status);
-        ProjectDTO projectDTO = projectDTOMapper.fromProject(project);
-        return ResponseEntity.ok(projectDTO);
-    }
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")

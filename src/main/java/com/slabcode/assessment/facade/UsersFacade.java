@@ -16,15 +16,15 @@ public class UsersFacade {
         this.usersRepository = usersRepository;
     }
 
-    public User findByName(String name) {
-        return usersRepository.findByName(name);
-    }
 
     @Transactional
     public User save(User user) {
         return usersRepository.save(user);
     }
 
+    public User findByName(String name) {
+        return usersRepository.findByName(name);
+    }
 
     public User findById( Integer id) {
         return usersRepository.findById(id).orElse(null);

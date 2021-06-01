@@ -1,8 +1,6 @@
 package com.slabcode.assessment.controller;
 
-import com.slabcode.assessment.dto.ProjectDTO;
 import com.slabcode.assessment.dto.TaskDTO;
-import com.slabcode.assessment.entity.Project;
 import com.slabcode.assessment.entity.Task;
 import com.slabcode.assessment.mapper.TaskDTOMapper;
 import com.slabcode.assessment.service.TasksService;
@@ -15,8 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/tasks")
@@ -30,20 +26,6 @@ public class TasksController {
     TasksController(TasksService tasksService, TaskDTOMapper taskDTOMapper) {
         this.tasksService = tasksService;
         this.taskDTOMapper = taskDTOMapper;
-    }
-
-    @GetMapping("/{id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @ApiOperation(value = "${TasksController.get}")
-    public TaskDTO getTaskById(@PathVariable Integer id) {
-        return taskDTOMapper.fromTask(tasksService.findById(id));
-    }
-
-    @GetMapping
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @ApiOperation(value = "${TasksController.search}")
-    public TaskDTO findTaskByName(@RequestParam String name) {
-        return taskDTOMapper.fromTask(tasksService.findByName(name));
     }
 
     @PostMapping
@@ -63,8 +45,31 @@ public class TasksController {
         return ResponseEntity.created(location).body(taskDTO);
     }
 
+    @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @ApiOperation(value = "${TasksController.get}")
+    public TaskDTO getTaskById(@PathVariable Integer id) {
+        return taskDTOMapper.fromTask(tasksService.findById(id));
+    }
+
+    @GetMapping
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @ApiOperation(value = "${TasksController.search}")
+    public TaskDTO findTaskByName(@RequestParam String name) {
+        return taskDTOMapper.fromTask(tasksService.findByName(name));
+    }
+
+    @PatchMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @ApiOperation(value = "${TasksController.status.update}")
+    public ResponseEntity<TaskDTO> updateStatus(@PathVariable Integer id, @RequestParam String status) {
+        Task task = tasksService.updateStatus(id, status);
+        TaskDTO taskDTO = taskDTOMapper.fromTask(task);
+        return ResponseEntity.ok(taskDTO);
+    }
+
     @PutMapping
-    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ApiOperation(value = "${TasksController.update}")
     public ResponseEntity<TaskDTO> update(@RequestBody TaskDTO taskDTO) {
         Task task = taskDTOMapper.toTask(taskDTO);
@@ -79,15 +84,4 @@ public class TasksController {
     public void deleteById(@PathVariable Integer id) {
         tasksService.deteleById(id);
     }
-
-    @PatchMapping("/{id}")
-    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
-    @ApiOperation(value = "${TasksController.status.update}")
-    public ResponseEntity<TaskDTO> updateStatus(@PathVariable Integer id, @RequestParam String status) {
-        Task task = tasksService.updateStatus(id, status);
-        TaskDTO taskDTO = taskDTOMapper.fromTask(task);
-        return ResponseEntity.ok(taskDTO);
-    }
-
-
 }

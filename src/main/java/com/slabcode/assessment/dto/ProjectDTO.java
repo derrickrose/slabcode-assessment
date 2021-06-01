@@ -1,6 +1,5 @@
 package com.slabcode.assessment.dto;
 
-import com.slabcode.assessment.entity.Project;
 import com.slabcode.assessment.constant.ProgressStatus;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

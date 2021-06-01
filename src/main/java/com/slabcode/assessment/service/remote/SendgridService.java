@@ -17,7 +17,7 @@ public class SendgridService {
     @Value("${notification.email.send-grid.validated-single-sender}")
     private String sender;
 
-    public void notifyUser(String userName, String passWord, String email) {
+    public void notifyAccountCreated(String userName, String passWord, String email) {
 
         Email from = new Email(sender);
         String subject = "SLABCODE assessment account creation notification.";

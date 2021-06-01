@@ -30,14 +30,6 @@ public class SlabCodeAssessmentApplication implements CommandLineRunner {
         admin.setRoles(new HashSet<>(Arrays.asList(Role.ROLE_ADMIN)));
 
         usersService.save(admin, false);
-
-        User client = new User();
-        client.setUsername("client");
-        client.setPassword("client");
-        client.setEmail("client@email.com");
-        client.setRoles(new HashSet<>(Arrays.asList(Role.ROLE_USER)));
-
-        usersService.save(client, false);
     }
 
 

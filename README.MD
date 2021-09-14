@@ -44,6 +44,8 @@ WHAT NEXT ?
 ------------------------------------------------------------------------------------------------------
 
 * Unit testing (the best practice is TDD)
+* Many refactoring
+* Typed Authorization
 * Code style
 * Some documentation
 

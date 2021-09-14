@@ -24,6 +24,8 @@ public class TaskDTOMapper {
         taskDTO.setExecutionDate(task.getExecutionDate());
         taskDTO.setStatus(task.getStatus());
         taskDTO.setProjectId(task.getProject().getId());
+        taskDTO.setDate1(task.getDate1());
+        taskDTO.setDate2(task.getDate2());
         return taskDTO;
     }
 
@@ -41,6 +43,8 @@ public class TaskDTOMapper {
         } else {
             throw new CustomException("Project not found", HttpStatus.NOT_FOUND);
         }
+        task.setDate1(taskDTO.getDate1());
+        task.setDate2(taskDTO.getDate2());
         return task;
     }
 }

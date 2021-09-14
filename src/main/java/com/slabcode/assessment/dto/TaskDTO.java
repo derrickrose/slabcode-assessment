@@ -17,4 +17,6 @@ public class TaskDTO {
     private Calendar executionDate;
     private ProgressStatus status;
     private Integer projectId;
+    private Calendar date1;
+    private Calendar date2;
 }

@@ -42,7 +42,7 @@ RUN
 ------------------------------------------------------------------------------------------------------
 WHAT NEXT ?
 ------------------------------------------------------------------------------------------------------
-
+* Class level custom hibernate constraint to refactor
 * Unit testing (the best practice is TDD)
 * Many refactoring
 * Typed Authorization

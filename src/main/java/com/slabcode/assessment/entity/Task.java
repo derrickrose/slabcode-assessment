@@ -1,6 +1,7 @@
 package com.slabcode.assessment.entity;
 
 import com.slabcode.assessment.constant.ProgressStatus;
+import com.slabcode.assessment.entity.validation.ITaskValidator;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,6 +15,7 @@ import java.util.Calendar;
 @Getter
 @Setter
 @NoArgsConstructor
+@ITaskValidator(message = "date 2 should be greatter than date 1")
 public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,6 +35,15 @@ public class Task {
 
     @Temporal(TemporalType.TIMESTAMP)
     private Calendar executionDate;
+
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Calendar date1;
+
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Calendar date2;
+
 
     //@Temporal(TemporalType.TIMESTAMP)
     // private Calendar terminationDate;
